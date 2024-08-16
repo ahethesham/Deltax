@@ -34,7 +34,7 @@ POST  /patients/appointments/{Id}
 
 e.Update the appointment time
 
-PUT  /patients/appointments/{TokenId}
+PUT  /patients/appointments/{PatientId}/{TokenId}
 {
     "startfrom":"11:30",
     "end":"12:00"
