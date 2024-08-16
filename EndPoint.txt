@@ -1,0 +1,34 @@
+a.Find doctors for a specific specialization 
+[HttpGet]
+/doctors/department/{deptId}
+
+
+
+b.Get all schedules of a doctor
+[HttpGet]
+/doctors/schedules/{id}
+
+
+
+c.Create a new patient
+[HttpPost] 
+/patients
+
+
+
+d.Create a new appointment for the patient
+[HttpPost]
+/patients/appointments/{Id}
+
+
+e.Update the appointment time
+[HttpPut]
+/patients/appointments/{TokenId}
+
+
+f.Fetch all appointments of a patient
+[HttpGet]
+/patients/appointments/{Id}
+
+
+
