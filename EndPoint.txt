@@ -1,34 +1,49 @@
 a.Find doctors for a specific specialization 
-[HttpGet]
-/doctors/department/{deptId}
+
+GET  /doctors/department/{deptId}
 
 
 
 b.Get all schedules of a doctor
-[HttpGet]
-/doctors/schedules/{id}
+
+GET  /doctors/schedules/{id}
 
 
 
 c.Create a new patient
-[HttpPost] 
-/patients
+ 
+POST  /patients
+{
+    "name":"XXX",
+    "gender":"male",
+    "age":20,
+}
 
 
 
 d.Create a new appointment for the patient
-[HttpPost]
-/patients/appointments/{Id}
+
+POST  /patients/appointments/{Id}
+{
+    "doctorId":xx,
+    "date":"09-09-2000",
+    "startfrom":"10:30",
+    "end":"11:00",
+}
 
 
 e.Update the appointment time
-[HttpPut]
-/patients/appointments/{TokenId}
+
+PUT  /patients/appointments/{TokenId}
+{
+    "startfrom":"11:30",
+    "end":"12:00"
+}
 
 
 f.Fetch all appointments of a patient
-[HttpGet]
-/patients/appointments/{Id}
+
+GET  /patients/appointments/{Id}
 
 
 
