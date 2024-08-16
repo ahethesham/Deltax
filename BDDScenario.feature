@@ -54,6 +54,18 @@ Examples:
 |{"startfrom":"10:30:00","end":"11:00:00"}|
 |{"startfrom":"11:00:00","end":"12:30:00"}|
 
+Scenario:Fetch all appointments of a Patient
+Given i am a client
+when i make a GET request to '/patients/appointments/1'
+Then response should look like this 
+[
+    {"Id":1,"TokenId":2,"DoctorId":2,"date":"09-09-2000","start":"10:00:00","end":"10:30:00"},
+    {"Id":1,"TokenId":3,"DoctorId":1,"date":"09-09-2000","start":"11:00:00","end":"11:30:00"},
+]
+
+
+
+
 
 
 
