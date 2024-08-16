@@ -10,24 +10,37 @@ using Microsoft.Extensions.Logging;
 [Route("patients")]
 public class AppointmentsController : ControllerBase
 {
-   
+    IAppointmentServices _appointmentservices;
+    public AppointmentsController(IAppointmentServices _appointment)
+    {
+        _appointmentservices = _appointment;
+    }
+    
     [HttpPost]
     [Route("/appointments")]
     public IActionResult CreateAppointment([FromBody]AppointmentRequestModel _appointment)
     {
-        return Ok();
+      //  try
+        //{
+            _appointmentservices.CreateAppointment(_appointment);
+            return Ok();
+        //}
+        //catch(Exception e)
+        //{
+           // return BadRequest(e);
+        //}
     }
     [HttpGet]
     [Route("/appointments/{id}")]
     public IActionResult GetAppointments(int id)
     {
-        try
-        {
-            return Ok();
-        }
-        catch{
-            return BadRequest();
-        }
+       // try
+        //{
+            return Ok(_appointmentservices.GetAppointments(id));
+        //}
+        //catch(Exception e){
+          //  return BadRequest(e);
+        //}
     }
         
 }

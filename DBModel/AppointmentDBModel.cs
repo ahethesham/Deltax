@@ -6,8 +6,8 @@ public class AppointmentDBModel
 	public int DoctorId { get; set; }
 	//public int Id { get; set; }
 	public string AllotedDate { get; set; }
-	public string StartTime { get; set; }
-	public string EndTime { get; set; }
+	public TimeSpan StartTime { get; set; }
+	public TimeSpan EndTime { get; set; }
 }
 
 

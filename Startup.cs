@@ -28,10 +28,11 @@ namespace Clinic
         {
 
             services.AddControllers();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Clinic", Version = "v1" });
-            //});
+
+            services.AddScoped<IAppointmentRepo, AppointmentRepo>();
+            services.AddScoped<IAppointmentServices, AppointmentServices>();
+            services.AddScoped<IDoctorRepo, DoctorRepo>();
+            services.Configure<ConnectionString>(Configuration.GetSection("ConnectionString"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
