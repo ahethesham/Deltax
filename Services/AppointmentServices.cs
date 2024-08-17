@@ -11,6 +11,65 @@ public class AppointmentServices:IAppointmentServices
 		_appointmentrepo=_appointment;
 		_doctorrepo = _doctor;
 	}
+
+	public DoctorResponseModel GetBestDoctor(int Deptid,DateTime date)
+	{
+		DoctorResponseModel response;
+		response = CheckExperience(Deptid, date);
+		if (response != null) return response;
+		response = CheckPatientsTreated(Deptid, date);
+		if(response!=null)
+		return response;
+		return GetNearest(Deptid, date);
+	}
+
+	private DoctorResponseModel CheckExperience(int deptId,DateTime date)
+	{
+		var response=_doctorrepo.CheckExperience(deptId, date);
+		if (response == null) return null;
+		var res = new DoctorResponseModel()
+		{
+			name = response.Name,
+			Id = response.Id,
+			Joiningdate = response.Joiningdate,
+			Patientstreated = response.patientstreated,
+			Gender=response.Gender,
+
+		};
+		return res;
+	}
+	private DoctorResponseModel CheckPatientsTreated(int deptid,DateTime date)
+	{
+		var response=_doctorrepo.CheckPatientsTreated(deptid, date);
+        if (response == null) return null;
+        var res = new DoctorResponseModel()
+        {
+            name = response.Name,
+            Id = response.Id,
+            Joiningdate = response.Joiningdate,
+            Patientstreated = response.patientstreated,
+            Gender = response.Gender,
+
+        };
+		return res;
+    }
+	private DoctorResponseModel GetNearest(int deptid,DateTime date)
+	{
+		var response=_doctorrepo.GetNearestDoctor(deptid, date);
+        if (response == null) return null;
+        var res = new DoctorResponseModel()
+        {
+            name = response.Name,
+            Id = response.Id,
+            Joiningdate = response.Joiningdate,
+            Patientstreated = response.patientstreated,
+            Gender = response.Gender,
+
+        };
+		return res;
+    }
+
+
 	public void CreateAppointment(AppointmentRequestModel _appointment)
 	{
 		var _appointmentDBModel = new AppointmentDBModel()

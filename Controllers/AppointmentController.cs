@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 
+
+
 [ApiController]
 [Route("patients")]
 public class AppointmentsController : ControllerBase
@@ -17,30 +19,43 @@ public class AppointmentsController : ControllerBase
     }
     
     [HttpPost]
-    [Route("/appointments")]
+    [Route("appointments")]
     public IActionResult CreateAppointment([FromBody]AppointmentRequestModel _appointment)
     {
-      //  try
-        //{
+        try
+        {
             _appointmentservices.CreateAppointment(_appointment);
             return Ok();
-        //}
-        //catch(Exception e)
-        //{
-           // return BadRequest(e);
-        //}
+        }
+        catch(Exception e)
+        {
+            return BadRequest(e);
+        }
     }
     [HttpGet]
-    [Route("/appointments/{id}")]
+    [Route("appointments/{id}")]
     public IActionResult GetAppointments(int id)
     {
-       // try
-        //{
+        try
+        {
             return Ok(_appointmentservices.GetAppointments(id));
-        //}
-        //catch(Exception e){
-          //  return BadRequest(e);
-        //}
+        }
+        catch(Exception e){
+            return BadRequest(e);
+        }
+    }
+    [HttpGet]
+    [Route("BestDoctor")]
+    public IActionResult GetBestDoctor([FromBody]BestDoctor _bestdoctor)
+    {
+        try
+        {
+            return Ok(_appointmentservices.GetBestDoctor(_bestdoctor.DeptId, _bestdoctor.date));
+        }
+        catch(Exception e)
+        {
+            return BadRequest(e);
+        }
     }
         
 }
