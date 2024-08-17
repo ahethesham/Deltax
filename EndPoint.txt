@@ -1,17 +1,14 @@
 a.Find doctors for a specific specialization 
-
 GET  /doctors/department/{deptId}
 
 
 
 b.Get all schedules of a doctor
-
 GET  /doctors/schedules/{id}
 
 
 
 c.Create a new patient
- 
 POST  /patients
 {
     "name":"XXX",
@@ -22,9 +19,9 @@ POST  /patients
 
 
 d.Create a new appointment for the patient
-
-POST  /patients/appointments/{Id}
+POST  /patients/appointments
 {
+    "PatientId":xx,
     "doctorId":xx,
     "date":"09-09-2000",
     "startfrom":"10:30",
@@ -33,7 +30,6 @@ POST  /patients/appointments/{Id}
 
 
 e.Update the appointment time
-
 PUT  /patients/appointments/{PatientId}/{TokenId}
 {
     "startfrom":"11:30",
@@ -42,7 +38,6 @@ PUT  /patients/appointments/{PatientId}/{TokenId}
 
 
 f.Fetch all appointments of a patient
-
 GET  /patients/appointments/{Id}
 
 
