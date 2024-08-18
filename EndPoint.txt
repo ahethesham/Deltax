@@ -4,7 +4,7 @@ GET  /doctors/department/{deptId}
 
 
 b.Get all schedules of a doctor
-GET  /doctors/schedules/{id}
+GET  /doctors/appointments/{id}
 
 
 
@@ -23,17 +23,16 @@ POST  /patients/appointments
 {
     "PatientId":xx,
     "doctorId":xx,
-    "date":"09-09-2000",
-    "startfrom":"10:30",
-    "end":"11:00",
+    "SlotId":xx
 }
 
 
 e.Update the appointment time
-PUT  /patients/appointments/{PatientId}/{TokenId}
+PUT  /patients/appointments
 {
-    "startfrom":"11:30",
-    "end":"12:00"
+    "PatientId":xx,
+    "doctorId":xx,
+    "SlotId":xx
 }
 
 
