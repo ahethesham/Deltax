@@ -6,6 +6,7 @@ public interface IDoctorRepo
 	public DoctorDBModel CheckExperience(int DeptId, DateTime date);
 	public DoctorDBModel CheckPatientsTreated(int DeptId, DateTime date);
 	public DoctorDBModel GetNearestDoctor(int DeptId, DateTime date);
+
 }
 
 

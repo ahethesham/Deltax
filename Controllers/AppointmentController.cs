@@ -22,40 +22,40 @@ public class AppointmentsController : ControllerBase
     [Route("appointments")]
     public IActionResult CreateAppointment([FromBody]AppointmentRequestModel _appointment)
     {
-        try
-        {
+       // try
+        //{
             _appointmentservices.CreateAppointment(_appointment);
             return Ok();
-        }
-        catch(Exception e)
-        {
-            return BadRequest(e);
-        }
+        //}
+        //catch(Exception e)
+        //{
+          //  return BadRequest(e);
+        //}
     }
     [HttpGet]
     [Route("appointments/{id}")]
     public IActionResult GetAppointments(int id)
     {
-        try
-        {
+       // try
+        //{
             return Ok(_appointmentservices.GetAppointments(id));
-        }
-        catch(Exception e){
-            return BadRequest(e);
-        }
+        //}
+        //catch(Exception e){
+        //    return BadRequest(e);
+        //}
     }
     [HttpGet]
     [Route("BestDoctor")]
     public IActionResult GetBestDoctor([FromBody]BestDoctor _bestdoctor)
     {
-        try
-        {
+        //try
+        //{
             return Ok(_appointmentservices.GetBestDoctor(_bestdoctor.DeptId, _bestdoctor.date));
-        }
-        catch(Exception e)
-        {
-            return BadRequest(e);
-        }
+        //}
+        //catch(Exception e)
+        //{
+        //    return BadRequest(e);
+        //}
     }
         
 }

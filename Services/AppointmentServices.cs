@@ -75,10 +75,9 @@ public class AppointmentServices:IAppointmentServices
 		var _appointmentDBModel = new AppointmentDBModel()
 		{
 			PatientId = _appointment.PatientId,
-			AllotedDate = _appointment.DateAlloted,
+			SlotId = _appointment.SlotId,
 			DoctorId = _appointment.DoctorId,
-			StartTime = _appointment.StartTime,
-			EndTime = _appointment.EndTime
+			
 		};
 		_appointmentrepo.CreateAppointment(_appointmentDBModel);
 
@@ -91,9 +90,9 @@ public class AppointmentServices:IAppointmentServices
 			PatientId = x.PatientId,
 			DoctorName = GetDoctorName(x.DoctorId),
 			Department=GetDepartment(x.DoctorId),
-			AllotedDate=x.AllotedDate,
-			StartTime=x.StartTime,
-			EndTime=x.EndTime
+			AllotedDate=GetDate(x.SlotId),
+			StartTime=GetTime(x.SlotId),
+			EndTime=GetEndTime(x.SlotId)
 		}).ToList();
 		return resp;
 	}
@@ -108,6 +107,19 @@ public class AppointmentServices:IAppointmentServices
 		var dept = _doctorrepo.getdept(id);
 		return dept;
 	}
+	private string GetDate(int id)
+	{
+		return _appointmentrepo.GetDate(id);
+	}
+    private TimeSpan GetTime(int id)
+    {
+        return _appointmentrepo.GetTime(id);
+    }
+    private TimeSpan GetEndTime(int id)
+    {
+        return _appointmentrepo.GetEndTime(id);
+    }
+
 }
 
 
