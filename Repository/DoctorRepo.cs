@@ -4,6 +4,8 @@ using Dapper;
 using Microsoft.Extensions.Options;
 using System;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
+
 public class DoctorRepo:IDoctorRepo
 {
 	private readonly string _connstring;
@@ -31,6 +33,16 @@ public class DoctorRepo:IDoctorRepo
             return response[0];
         }
 
+    }
+    public List<DoctorDemoModel> GetAllDoctors(int DeptId,DateTime date)
+    {
+        using (var conn = new MySqlConnection(_connstring))
+        {
+            var sql = "select d.Id,d.Name,d.Joiningdate,d.patientstreated,d.DeptId,s2.slotdate from doctor d JOIN workingslots ws on d.id=ws.doctorid join slots s2 on ws.slotid=s2.id where d.deptid=@deptid and s2.slotdate>=@date order by s2.slotdate desc";
+            var response = conn.Query<DoctorDemoModel>(sql, new { DeptId = DeptId, date = @date }).ToList<DoctorDemoModel>();
+            if (response.Count == 0) return null;
+            return response;
+        }
     }
     public DoctorDBModel GetNearestDoctor(int DeptId,DateTime date)
     {

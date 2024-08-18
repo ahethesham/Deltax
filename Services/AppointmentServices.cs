@@ -12,59 +12,73 @@ public class AppointmentServices:IAppointmentServices
 		_doctorrepo = _doctor;
 	}
 
-	public DoctorResponseModel GetBestDoctor(int Deptid,DateTime date)
+	public DoctorDemoModel GetBestDoctor(int Deptid,DateTime date)
 	{
-		DoctorResponseModel response;
+		DoctorDemoModel response;
 		response = CheckExperience(Deptid, date);
 		if (response != null) return response;
 		response = CheckPatientsTreated(Deptid, date);
 		if(response!=null)
 		return response;
-		return GetNearest(Deptid, date);
-	}
+		var alldocs = _doctorrepo.GetAllDoctors(Deptid, date);
+		if (alldocs.Count == 0) return null;
+		for(int i = 0; i < alldocs.Count; i++)
+		{
+			int y1 = alldocs[i].Joiningdate.Year, y2 = date.Year;
+			if (y2 - y1 >= 10)
+				return alldocs[i];
+		}
+		
+        for (int i = 0; i < alldocs.Count; i++)
+        {
+			if (alldocs[i].patientstreated >= 20) return alldocs[i];
+        }
+		return null;
+        //return GetNearest(Deptid, date);
+    }
 
-	private DoctorResponseModel CheckExperience(int deptId,DateTime date)
+	private DoctorDemoModel CheckExperience(int deptId,DateTime date)
 	{
 		var response=_doctorrepo.CheckExperience(deptId, date);
 		if (response == null) return null;
-		var res = new DoctorResponseModel()
+		var res = new DoctorDemoModel()
 		{
-			name = response.Name,
+			Name = response.Name,
 			Id = response.Id,
 			Joiningdate = response.Joiningdate,
-			Patientstreated = response.patientstreated,
-			Gender=response.Gender,
-
+			patientstreated = response.patientstreated,
+			Gender = response.Gender,
+			slotdate = date
 		};
 		return res;
 	}
-	private DoctorResponseModel CheckPatientsTreated(int deptid,DateTime date)
+	private DoctorDemoModel CheckPatientsTreated(int deptid,DateTime date)
 	{
 		var response=_doctorrepo.CheckPatientsTreated(deptid, date);
         if (response == null) return null;
-        var res = new DoctorResponseModel()
-        {
-            name = response.Name,
-            Id = response.Id,
-            Joiningdate = response.Joiningdate,
-            Patientstreated = response.patientstreated,
-            Gender = response.Gender,
-
+		var res = new DoctorDemoModel()
+		{
+			Name = response.Name,
+			Id = response.Id,
+			Joiningdate = response.Joiningdate,
+			patientstreated = response.patientstreated,
+			Gender = response.Gender,
+			slotdate = date
         };
 		return res;
     }
-	private DoctorResponseModel GetNearest(int deptid,DateTime date)
+	private DoctorDemoModel GetNearest(int deptid,DateTime date)
 	{
 		var response=_doctorrepo.GetNearestDoctor(deptid, date);
         if (response == null) return null;
-        var res = new DoctorResponseModel()
+        var res = new DoctorDemoModel()
         {
-            name = response.Name,
+            Name = response.Name,
             Id = response.Id,
             Joiningdate = response.Joiningdate,
-            Patientstreated = response.patientstreated,
+            patientstreated = response.patientstreated,
             Gender = response.Gender,
-
+			slotdate=date
         };
 		return res;
     }
